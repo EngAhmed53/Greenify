@@ -8,5 +8,6 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.ui.text.google.fonts)
     // Add relevant dependencies here
 }
