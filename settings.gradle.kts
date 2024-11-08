@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -20,5 +21,11 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Greenify"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
- 
+include(":core:model")
+include(":core:data")
+include(":core:network")
+include(":feature:home")
+include(":core:ui")
+include(":feature:details")
