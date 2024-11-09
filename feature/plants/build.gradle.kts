@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.example.greenify.feature.home"
+    namespace = "com.example.greenify.feature.plants"
 
 }
 
 dependencies {
-
+    implementation(libs.glide.compose)
 }
