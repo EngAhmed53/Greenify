@@ -16,8 +16,10 @@
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
+import com.edumate.greenify.build_logic.convention.androidTestImplementation
 import com.edumate.greenify.build_logic.convention.configureKotlinAndroid
 import com.edumate.greenify.build_logic.convention.libs
+import com.edumate.greenify.build_logic.convention.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -43,8 +45,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                add("androidTestImplementation", kotlin("test"))
-                add("testImplementation", kotlin("test"))
+                androidTestImplementation(kotlin("test"))
+                testImplementation(kotlin("test"))
             }
         }
     }
