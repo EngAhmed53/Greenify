@@ -17,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.edumate.greenify.core.ui.theme.GreenifyTheme
 import com.edumate.greenify.core.ui.toPlantUI
-import com.example.compose.GreenifyTheme
 import kotlinx.collections.immutable.toPersistentList
 
 @Composable
@@ -28,7 +28,6 @@ fun PlantListScreen(
     onCountryFilterSelected: (index: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Scaffold(
         modifier = modifier,
         topBar = {

@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.edumate.greenify.core.ui.theme.GreenifyTheme
 import com.edumate.greenify.feature.home.PlantListScreen
 import com.edumate.greenify.feature.home.PlantsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,14 +17,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val viewModel: PlantsViewModel = viewModel()
-            val state by viewModel.state.collectAsStateWithLifecycle()
-            PlantListScreen(
-                state = state,
-                countries = viewModel.getSupportedCountriesNames(),
-                onCountryFilterSelected = viewModel::changeCountryFilter,
-                modifier = Modifier
-            )
+            GreenifyTheme {
+                val viewModel: PlantsViewModel = viewModel()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+                PlantListScreen(
+                    state = state,
+                    countries = viewModel.getSupportedCountriesNames(),
+                    onCountryFilterSelected = viewModel::changeCountryFilter,
+                    modifier = Modifier
+                )
+            }
         }
     }
 }

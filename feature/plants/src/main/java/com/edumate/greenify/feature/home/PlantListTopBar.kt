@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.compose.GreenifyTheme
+import com.edumate.greenify.core.ui.theme.GreenifyTheme
 
 @Composable
 fun PlantListTopBar(
@@ -68,7 +68,7 @@ fun PlantListTopBar(
 private fun PlantListItemPreview() {
     GreenifyTheme {
         PlantListTopBar(
-            countries = listOf("USA", "Egypt", "Palastine", "Qatar"),
+            countries = listOf("USA", "Egypt", "Palestine", "Qatar"),
             selectedCountryIndex = 0,
             onCountrySelected = {},
             Modifier.background(MaterialTheme.colorScheme.background)
