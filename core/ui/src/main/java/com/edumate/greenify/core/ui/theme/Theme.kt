@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import com.edumate.greenify.core.ui.design.AppTypography
+import com.edumate.greenify.core.ui.theme.AppTypography
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
