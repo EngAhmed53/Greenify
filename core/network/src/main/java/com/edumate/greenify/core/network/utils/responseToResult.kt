@@ -1,7 +1,7 @@
 package com.edumate.greenify.core.network.utils
 
-import com.edumate.greenify.core.model.NetworkError
-import com.edumate.greenify.core.model.Result
+import com.edumate.greenify.core.common.NetworkError
+import com.edumate.greenify.core.common.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse

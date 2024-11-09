@@ -13,25 +13,27 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.edumate.greenify.core.model.SupportedCountries
-import com.edumate.greenify.core.ui.SelectableFilterCountry
 import com.edumate.greenify.core.ui.toPlantUI
 import com.example.compose.GreenifyTheme
+import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun PlantListScreen(
-    countries: List<SelectableFilterCountry>,
+    countries: List<String>,
     state: PlantScreenState,
+    onCountryFilterSelected: (index: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     Scaffold(
         modifier = modifier,
-        topBar = { PlantListTopBar(countries) }
+        topBar = {
+            PlantListTopBar(countries, state.countryIndex, onCountryFilterSelected)
+        }
     ) { padding ->
         if (state.isLoading) {
             Box(
@@ -44,7 +46,7 @@ fun PlantListScreen(
             }
         } else {
             LazyColumn(
-                modifier = modifier.padding(top = padding.calculateTopPadding()),
+                modifier = modifier.padding(padding),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(8.dp),
             ) {
@@ -66,15 +68,12 @@ fun PlantListScreen(
 private fun PlantScreenPreview() {
     GreenifyTheme {
         PlantListScreen(
-            countries = SupportedCountries.entries.map {
-                if (it == SupportedCountries.ALL)
-                    SelectableFilterCountry(name = it.name, selected = mutableStateOf(true))
-                else SelectableFilterCountry(name = it.name)
-            },
+            countries = emptyList(),
             state = PlantScreenState(
                 isLoading = false,
-                plants = (1..100).map { previewPlant.copy(id = it).toPlantUI() }
+                plants = (1..100).map { previewPlant.copy(id = it).toPlantUI() }.toPersistentList()
             ),
+            onCountryFilterSelected = {},
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         )
     }

@@ -9,5 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.glide.compose)
+    api(libs.glide.compose)
+    ksp(libs.glide.compose)
+    implementation(libs.kotlinx.collections.immutable)
 }

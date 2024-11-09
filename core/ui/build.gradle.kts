@@ -9,5 +9,5 @@ android {
 
 dependencies {
     // Add relevant dependencies here
-    api(projects.core.model)
+    implementation(projects.core.domain)
 }

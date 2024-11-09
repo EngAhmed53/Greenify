@@ -21,6 +21,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.ktor)
-    implementation(projects.core.model)
+    api(libs.bundles.ktor)
+    api(projects.core.common)
 }

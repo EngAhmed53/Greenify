@@ -1,11 +1,12 @@
 package com.edumate.greenify.feature.home
 
-import androidx.compose.runtime.Immutable
 import com.edumate.greenify.core.ui.PlantUI
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 
-@Immutable
 data class PlantScreenState(
     val isLoading: Boolean = false,
-    val plants: List<PlantUI> = emptyList(),
+    val plants: PersistentList<PlantUI> = persistentListOf(),
+    val countryIndex: Int = 0,
     val selectedPlant: PlantUI? = null
 )

@@ -1,12 +1,13 @@
 package com.edumate.greenify.feature.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FilterChip
@@ -15,21 +16,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.edumate.greenify.core.model.SupportedCountries
-import com.edumate.greenify.core.ui.SelectableFilterCountry
 import com.example.compose.GreenifyTheme
 
 @Composable
 fun PlantListTopBar(
-    countries: List<SelectableFilterCountry>,
+    countries: List<String>,
+    selectedCountryIndex: Int,
+    onCountrySelected: (index: Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -38,13 +35,16 @@ fun PlantListTopBar(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 8.dp)
     ) {
-        items(countries) { country ->
-            var selected by remember { country.selected }
-
+        Log.d("PlantListTopBar", "Recomposed here, selected = $selectedCountryIndex")
+        itemsIndexed(countries) { index, country ->
+            Log.d("PlantListTopBar", "Recomposed index = $index")
+            val selected = selectedCountryIndex == index
             FilterChip(
-                onClick = { selected = !selected },
+                onClick = {
+                    onCountrySelected(index)
+                },
                 label = {
-                    Text(country.name)
+                    Text(country)
                 },
                 selected = selected,
                 leadingIcon = if (selected) {
@@ -68,11 +68,9 @@ fun PlantListTopBar(
 private fun PlantListItemPreview() {
     GreenifyTheme {
         PlantListTopBar(
-            countries = SupportedCountries.entries.map {
-                if (it == SupportedCountries.ALL)
-                    SelectableFilterCountry(name = it.name, selected = mutableStateOf(true))
-                else SelectableFilterCountry(name = it.name)
-            },
+            countries = listOf("USA", "Egypt", "Palastine", "Qatar"),
+            selectedCountryIndex = 0,
+            onCountrySelected = {},
             Modifier.background(MaterialTheme.colorScheme.background)
         )
     }

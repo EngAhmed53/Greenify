@@ -23,9 +23,10 @@ dependencyResolutionManagement {
 rootProject.name = "Greenify"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":core:model")
+include(":core:common")
 include(":core:data")
 include(":core:network")
 include(":core:designsystem")
 include(":feature:plants")
 include(":core:ui")
+include(":core:domain")

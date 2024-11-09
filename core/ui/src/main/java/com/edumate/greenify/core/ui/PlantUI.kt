@@ -1,11 +1,11 @@
 package com.edumate.greenify.core.ui
 
-import com.edumate.greenify.core.model.Plant
+import com.edumate.greenify.core.domain.model.Plant
 
 data class PlantUI(
     val id: Int,
     val name: String,
-    val year: String,
+    val year: Int,
     val status: String,
     val family: String,
     val index: PlantIndex,
@@ -15,23 +15,28 @@ data class PlantUI(
 }
 
 data class PlantIndex(
-    val bibliography: String,
-    val scientificName: String,
+    val bibliography: String?,
+    val scientificName: String?,
 ) {
     fun asFormatedIndex(): String {
-        return bibliography + "\n" + scientificName
+        return when {
+            bibliography == null && scientificName == null -> "N/A"
+            bibliography != null && scientificName == null -> bibliography
+            bibliography == null && scientificName != null -> scientificName
+            else -> "$bibliography\n$scientificName"
+        }
     }
 }
 
 fun Plant.toPlantUI(): PlantUI {
     return PlantUI(
         id,
-        name,
+        name ?: "N/A",
         year,
         status,
-        family,
+        family ?: "N/A",
         PlantIndex(bibliography, scientificName),
-        author,
+        author ?: "N/A",
         imageUrl
     )
 }
