@@ -1,4 +1,4 @@
-package com.edumate.greenify.feature.home
+package com.edumate.greenify.feature.plants.plantsList
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -24,9 +24,9 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import com.edumate.greenify.core.domain.model.Plant
-import com.edumate.greenify.core.ui.PlantUI
+import com.edumate.greenify.core.ui.model.PlantUI
+import com.edumate.greenify.core.ui.model.toPlantUI
 import com.edumate.greenify.core.ui.theme.GreenifyTheme
-import com.edumate.greenify.core.ui.toPlantUI
 import com.example.greenify.feature.plants.R
 
 @OptIn(ExperimentalGlideComposeApi::class)

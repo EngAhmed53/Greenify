@@ -1,4 +1,4 @@
-package com.edumate.greenify.feature.home
+package com.edumate.greenify.feature.plants.plantsList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,12 +7,15 @@ import com.edumate.greenify.core.common.onError
 import com.edumate.greenify.core.common.onSuccess
 import com.edumate.greenify.core.domain.model.SupportedCountries
 import com.edumate.greenify.core.domain.usecases.FetchPlantsUseCase
-import com.edumate.greenify.core.ui.toPlantUI
+import com.edumate.greenify.core.ui.model.PlantUI
+import com.edumate.greenify.core.ui.model.toPlantUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,6 +30,9 @@ constructor(
 ) : ViewModel() {
 
     private var nextPage: Int? = 1
+
+    private val _events = Channel<PlantsListEvent>()
+    val events = _events.receiveAsFlow()
 
     private val _state = MutableStateFlow(PlantScreenState())
     val state = _state
@@ -53,6 +59,10 @@ constructor(
         }
     }
 
+    fun onPlantSelected(plantUI: PlantUI) {
+        _state.update { it.copy(selectedPlant = plantUI) }
+    }
+
     fun loadPlants() {
         viewModelScope.launch {
             if (state.value.isLoading) return@launch
@@ -76,6 +86,7 @@ constructor(
                         nextPage = null // Reached last page
                     }
                     _state.update { it.copy(isLoading = false) }
+                    _events.send(PlantsListEvent.Error(error))
                 }
         }
     }

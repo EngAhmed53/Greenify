@@ -1,4 +1,4 @@
-package com.edumate.greenify.core.ui
+package com.edumate.greenify.core.ui.model
 
 import com.edumate.greenify.core.domain.model.Plant
 

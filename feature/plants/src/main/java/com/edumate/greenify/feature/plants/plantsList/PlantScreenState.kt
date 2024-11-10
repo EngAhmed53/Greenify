@@ -1,6 +1,6 @@
-package com.edumate.greenify.feature.home
+package com.edumate.greenify.feature.plants.plantsList
 
-import com.edumate.greenify.core.ui.PlantUI
+import com.edumate.greenify.core.ui.model.PlantUI
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 

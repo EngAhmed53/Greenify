@@ -1,4 +1,4 @@
-package com.edumate.greenify.feature.home
+package com.edumate.greenify.feature.plants.plantsList
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,10 +26,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.edumate.greenify.core.ui.components.EmptyScreenPlaceholder
+import com.edumate.greenify.core.ui.model.PlantUI
+import com.edumate.greenify.core.ui.model.toPlantUI
 import com.edumate.greenify.core.ui.theme.GreenifyTheme
-import com.edumate.greenify.core.ui.toPlantUI
+import com.example.greenify.feature.plants.R
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
@@ -41,6 +45,7 @@ fun PlantListScreen(
     screenState: PlantScreenState,
     onCountryFilterSelected: (index: Int) -> Unit,
     loadMore: () -> Unit,
+    onPlantSelected: (PlantUI) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val listState = rememberLazyListState()
@@ -54,7 +59,6 @@ fun PlantListScreen(
                     listState.scrollToItem(0)
                 }
                 onCountryFilterSelected(index)
-
             })
         },
         floatingActionButton = {
@@ -68,13 +72,28 @@ fun PlantListScreen(
         }
     ) { padding ->
         if (screenState.plants.isEmpty()) {
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(padding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
+
+            if (screenState.isLoading) {
+                Box(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                Box(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    EmptyScreenPlaceholder(
+                        placeholderImage = R.drawable.sunflower,
+                        placeholderText = stringResource(R.string.feature_plants_no_plants_to_display)
+                    )
+                }
             }
         } else {
             Box(
@@ -83,7 +102,7 @@ fun PlantListScreen(
                     .padding(padding),
                 contentAlignment = Alignment.Center
             ) {
-                PaginatedPlantsList(loadMore, screenState, listState, modifier)
+                PaginatedPlantsList(screenState, listState, loadMore, onPlantSelected, modifier)
             }
         }
     }
@@ -91,13 +110,13 @@ fun PlantListScreen(
 
 @Composable
 private fun PaginatedPlantsList(
-    loadMore: () -> Unit,
     screenState: PlantScreenState,
     listState: LazyListState,
-    modifier: Modifier,
+    loadMore: () -> Unit,
+    onPlantSelected: (PlantUI) -> Unit,
+    modifier: Modifier = Modifier,
+    buffer: Int = 5,
 ) {
-    val buffer = 5
-
     val shouldLoadMore = remember {
         derivedStateOf {
             val totalItemsCount = listState.layoutInfo.totalItemsCount
@@ -124,7 +143,7 @@ private fun PaginatedPlantsList(
         items(items = screenState.plants, key = { it.id }) { plant ->
             PlantListItem(
                 plant,
-                onClick = {},
+                onClick = { onPlantSelected(plant) },
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -157,6 +176,7 @@ private fun PlantScreenPreview() {
             ),
             onCountryFilterSelected = {},
             loadMore = {},
+            onPlantSelected = {},
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         )
     }

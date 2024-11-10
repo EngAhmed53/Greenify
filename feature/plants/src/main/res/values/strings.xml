@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_plants_no_plants_to_display">No plants to display</string>
+    <string name="feature_plants_family">Family</string>
+    <string name="feature_plants_index">Index</string>
+    <string name="feature_plants_author">Author</string>
+</resources>
