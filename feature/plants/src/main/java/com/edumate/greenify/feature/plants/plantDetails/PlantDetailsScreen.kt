@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -35,28 +36,50 @@ import com.bumptech.glide.integration.compose.placeholder
 import com.edumate.greenify.core.ui.model.PlantUI
 import com.edumate.greenify.core.ui.model.toPlantUI
 import com.edumate.greenify.core.ui.theme.GreenifyTheme
+import com.edumate.greenify.feature.plants.plantsList.PlantScreenState
 import com.edumate.greenify.feature.plants.plantsList.previewPlant
 import com.example.greenify.feature.plants.R
+import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun PlantDetailsScreen(
-    plant: PlantUI,
+    state: PlantScreenState,
     modifier: Modifier = Modifier,
 ) {
     val contentColor = if (isSystemInDarkTheme()) Color.White else Color.Black
 
     Surface(modifier.fillMaxSize()) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+        when {
+            state.selectedPlant != null -> {
+                Column(
+                    Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
 
-            PlanetImageWithNameOverlay(plant, modifier.weight(1f))
+                    PlanetImageWithNameOverlay(state.selectedPlant,
+                        Modifier
+                            .fillMaxSize()
+                            .height(300.dp))
 
-            PlantInfoList(plant, contentColor)
+                    PlantInfoList(state.selectedPlant, contentColor)
+                }
+            }
+
+            else -> {
+                Box(
+                    modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.feature_plants_select_plant_to_display_its_information),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(12.dp)
+                    )
+                }
+            }
         }
     }
 }
@@ -184,6 +207,13 @@ fun TitledInfo(
 @Composable
 private fun PlantDetailsPreview() {
     GreenifyTheme {
-        PlantDetailsScreen(previewPlant.toPlantUI(), Modifier)
+        PlantDetailsScreen(
+            state = PlantScreenState(
+                isLoading = false,
+                plants = (1..100).map { previewPlant.copy(id = it).toPlantUI() }.toPersistentList(),
+                selectedPlant = previewPlant.toPlantUI()
+            ),
+            modifier = Modifier
+        )
     }
 }
