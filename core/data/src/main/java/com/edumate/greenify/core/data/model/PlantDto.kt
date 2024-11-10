@@ -30,5 +30,5 @@ data class PlantDto(
     val author: String?,
 
     @SerialName("image_url")
-    val imageUrl: String
+    val imageUrl: String?
 )

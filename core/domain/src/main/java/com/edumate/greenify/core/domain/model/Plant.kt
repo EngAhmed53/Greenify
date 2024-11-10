@@ -11,7 +11,7 @@ data class Plant(
     val bibliography: String?,
     val scientificName: String?,
     val author: String?,
-    val imageUrl: String
+    val imageUrl: String?
 )
 
 fun PlantDto.toPlant(): Plant {

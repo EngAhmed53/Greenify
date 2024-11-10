@@ -1,10 +1,10 @@
 package com.edumate.greenify.core.data.datasource
 
-import com.edumate.greenify.core.data.model.PlantDto
-import com.edumate.greenify.core.data.model.PlantsResponseDto
+import com.edumate.greenify.core.common.NetworkError
 import com.edumate.greenify.core.common.Result
 import com.edumate.greenify.core.common.map
-import com.edumate.greenify.core.common.NetworkError
+import com.edumate.greenify.core.data.model.PlantDto
+import com.edumate.greenify.core.data.model.PlantsResponseDto
 import com.edumate.greenify.core.network.utils.constructUrl
 import com.edumate.greenify.core.network.utils.safeCall
 import io.ktor.client.HttpClient
@@ -22,10 +22,11 @@ constructor(
         return safeCall<PlantsResponseDto> { token ->
             httpClient.get {
                 url(constructUrl("/plants"))
+                parameter("page", page)
                 parameter("token", token)
             }
         }.map { response ->
-            response.data
+            response.data.distinct() // Ensure the API doesn't return list with duplicates
         }
     }
 
@@ -33,10 +34,11 @@ constructor(
         return safeCall<PlantsResponseDto> { token ->
             httpClient.get {
                 url(constructUrl("/distributions/${countryCode}/plants"))
+                parameter("page", page)
                 parameter("token", token)
             }
         }.map { response ->
-            response.data
+            response.data.distinct() // Ensure the API doesn't return list with duplicates
         }
     }
 }

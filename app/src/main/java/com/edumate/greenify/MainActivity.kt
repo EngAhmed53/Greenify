@@ -21,9 +21,10 @@ class MainActivity : ComponentActivity() {
                 val viewModel: PlantsViewModel = viewModel()
                 val state by viewModel.state.collectAsStateWithLifecycle()
                 PlantListScreen(
-                    state = state,
+                    screenState = state,
                     countries = viewModel.getSupportedCountriesNames(),
                     onCountryFilterSelected = viewModel::changeCountryFilter,
+                    loadMore = viewModel::loadPlants,
                     modifier = Modifier
                 )
             }

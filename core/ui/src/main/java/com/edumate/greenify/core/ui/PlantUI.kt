@@ -10,9 +10,8 @@ data class PlantUI(
     val family: String,
     val index: PlantIndex,
     val author: String,
-    val imageUrl: String,
-) {
-}
+    val imageUrl: String?,
+)
 
 data class PlantIndex(
     val bibliography: String?,
