@@ -11,7 +11,11 @@ data class PlantUI(
     val index: PlantIndex,
     val author: String,
     val imageUrl: String?,
-)
+) {
+    fun getMoreDetailsLink(): String {
+        return "https://en.wikipedia.org/wiki/${name}"
+    }
+}
 
 data class PlantIndex(
     val bibliography: String?,

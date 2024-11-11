@@ -53,7 +53,7 @@ fun PlantInfoList(
         )
 
         ElevatedButton(
-            onClick = { openLinkInCustomTab(context, "https://en.wikipedia.org/wiki/${plant.name}", primaryColor) },
+            onClick = { openLinkInCustomTab(context, plant.getMoreDetailsLink(), primaryColor) },
             Modifier
                 .padding(vertical = 24.dp, horizontal = 12.dp)
                 .fillMaxWidth()
