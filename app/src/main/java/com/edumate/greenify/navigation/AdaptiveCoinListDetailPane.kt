@@ -1,7 +1,6 @@
 package com.edumate.greenify.navigation
 
 import android.widget.Toast
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.AnimatedPane
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
@@ -41,7 +40,6 @@ fun AdaptiveCoinListDetailPane(
     }
 
     val navigator = rememberListDetailPaneScaffoldNavigator<Any>()
-    val plantsListState = rememberLazyListState()
     NavigableListDetailPaneScaffold(
         navigator = navigator,
         listPane = {
@@ -55,7 +53,6 @@ fun AdaptiveCoinListDetailPane(
                         viewModel.onPlantSelected(plant)
                         navigator.navigateTo(pane = ListDetailPaneScaffoldRole.Detail)
                     },
-                    listState = plantsListState
                 )
             }
         },
