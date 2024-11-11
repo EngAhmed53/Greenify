@@ -20,7 +20,7 @@ Greenify provides detailed information about plants from around the world, inclu
 - Transcaucasus
 - Uzbekistan
 
-The app retrieves its content from the **[Trefle API](https://trefle.io/)**..
+The app retrieves its content from the **[Trefle API](https://trefle.io/)**.
 
 ---
 
@@ -41,6 +41,7 @@ Each theme also supports dark mode. The app is designed with adaptive layouts to
 ## Architecture
 
 The Greenify app follows the **[official Android architecture guidance](https://developer.android.com/topic/architecture)**.
+
 ---
 
 ## Modularization
@@ -58,7 +59,7 @@ core                   // Core functionality of the application
 ├── data               // Data layer of the application
 ├── designsystem       // Contains theme and custom Jetpack Compose components
 ├── domain             // Domain layer of the application
-├── network            // Network utilities
+├── network            // Network Utilities
 └── ui                 // Shared UI models and components
 feature                // Application features
 └── plants             // The plants feature
