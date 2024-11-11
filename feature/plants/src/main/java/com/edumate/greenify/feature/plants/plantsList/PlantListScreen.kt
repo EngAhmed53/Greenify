@@ -87,7 +87,7 @@ fun PlantListScreen(
                                 selectedCountryIndex = screenState.countryIndex,
                                 onCountrySelected = { index ->
                                     coroutineScope.launch {
-                                        listState.scrollToItem(0)
+                                        listState.animateScrollToItem(0)
                                     }
                                     onCountryFilterSelected(index)
                                 },
