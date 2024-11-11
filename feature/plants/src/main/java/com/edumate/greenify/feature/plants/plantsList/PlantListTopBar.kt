@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FilterChip
@@ -27,13 +29,15 @@ fun PlantListTopBar(
     countries: List<String>,
     selectedCountryIndex: Int,
     onCountrySelected: (index: Int) -> Unit,
+    listState: LazyListState,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
         modifier = modifier.padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(horizontal = 8.dp)
+        contentPadding = PaddingValues(horizontal = 8.dp),
+        state = listState
     ) {
         Log.d("PlantListTopBar", "Recomposed here, selected = $selectedCountryIndex")
         itemsIndexed(countries) { index, country ->
@@ -71,6 +75,7 @@ private fun PlantListItemPreview() {
             countries = listOf("USA", "Egypt", "Palestine", "Qatar"),
             selectedCountryIndex = 0,
             onCountrySelected = {},
+            listState = rememberLazyListState(),
             Modifier.background(MaterialTheme.colorScheme.background)
         )
     }

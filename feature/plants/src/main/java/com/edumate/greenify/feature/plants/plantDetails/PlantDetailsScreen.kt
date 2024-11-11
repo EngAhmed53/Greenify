@@ -14,9 +14,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -44,6 +48,8 @@ import kotlinx.collections.immutable.toPersistentList
 @Composable
 fun PlantDetailsScreen(
     state: PlantScreenState,
+    canNavigateBack: Boolean,
+    onBackPressedCallback: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val contentColor = if (isSystemInDarkTheme()) Color.White else Color.Black
@@ -58,11 +64,34 @@ fun PlantDetailsScreen(
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    Box(
+                        modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        PlanetImageWithNameOverlay(
+                            state.selectedPlant,
+                            Modifier
+                                .fillMaxSize()
+                                .height(300.dp)
+                        )
 
-                    PlanetImageWithNameOverlay(state.selectedPlant,
-                        Modifier
-                            .fillMaxSize()
-                            .height(300.dp))
+                        if (canNavigateBack) {
+                            IconButton(
+                                onClick = { onBackPressedCallback() },
+                                modifier = Modifier
+                                    .padding(top = 24.dp, start = 8.dp)
+                                    .size(48.dp)
+                                    .align(Alignment.TopStart),
+                            ) {
+                                Icon(
+                                    Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                                    contentDescription = "back",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(36.dp)
+                                )
+                            }
+                        }
+                    }
 
                     PlantInfoList(state.selectedPlant, contentColor)
                 }
@@ -202,7 +231,6 @@ fun TitledInfo(
     }
 }
 
-
 @PreviewLightDark
 @Composable
 private fun PlantDetailsPreview() {
@@ -213,6 +241,8 @@ private fun PlantDetailsPreview() {
                 plants = (1..100).map { previewPlant.copy(id = it).toPlantUI() }.toPersistentList(),
                 selectedPlant = previewPlant.toPlantUI()
             ),
+            onBackPressedCallback = {},
+            canNavigateBack = true,
             modifier = Modifier
         )
     }

@@ -58,7 +58,13 @@ fun AdaptiveCoinListDetailPane(
         },
         detailPane = {
             AnimatedPane {
-                PlantDetailsScreen(state)
+                PlantDetailsScreen(
+                    state = state,
+                    canNavigateBack = navigator.canNavigateBack(),
+                    onBackPressedCallback = {
+                        navigator.navigateBack()
+                    }
+                )
             }
         },
         modifier = modifier
