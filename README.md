@@ -8,6 +8,16 @@
 
 Screenshots of the application.
 
+<p align="center" width="100%">
+    <img src="screenshots/home.jpeg" alt="Home Screen" width="200">
+    <br>Home Screen
+</p>
+
+<p align="center" width="100%">
+    <img src="screenshots/details.jpeg" alt="Details Screen" width="200">
+    <br>Details Screen
+</p>
+
 ---
 
 ## Features
