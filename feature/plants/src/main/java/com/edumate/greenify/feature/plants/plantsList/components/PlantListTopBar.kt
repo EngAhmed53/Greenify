@@ -1,6 +1,5 @@
 package com.edumate.greenify.feature.plants.plantsList.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,9 +38,7 @@ fun PlantListTopBar(
         contentPadding = PaddingValues(horizontal = 8.dp),
         state = listState
     ) {
-        Log.d("PlantListTopBar", "Recomposed here, selected = $selectedCountryIndex")
         itemsIndexed(countries) { index, country ->
-            Log.d("PlantListTopBar", "Recomposed index = $index")
             val selected = selectedCountryIndex == index
             FilterChip(
                 onClick = {
