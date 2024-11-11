@@ -1,4 +1,4 @@
-package com.edumate.greenify.feature.plants.plantsList
+package com.edumate.greenify.feature.plants.plantsList.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme

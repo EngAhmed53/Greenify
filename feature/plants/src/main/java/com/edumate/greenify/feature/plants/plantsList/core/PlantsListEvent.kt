@@ -1,4 +1,4 @@
-package com.edumate.greenify.feature.plants.plantsList
+package com.edumate.greenify.feature.plants.plantsList.core
 
 import com.edumate.greenify.core.common.NetworkError
 

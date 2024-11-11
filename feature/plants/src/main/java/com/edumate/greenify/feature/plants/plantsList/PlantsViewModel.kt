@@ -9,6 +9,8 @@ import com.edumate.greenify.core.domain.model.SupportedCountries
 import com.edumate.greenify.core.domain.usecases.FetchPlantsUseCase
 import com.edumate.greenify.core.ui.model.PlantUI
 import com.edumate.greenify.core.ui.model.toPlantUI
+import com.edumate.greenify.feature.plants.plantsList.core.PlantScreenState
+import com.edumate.greenify.feature.plants.plantsList.core.PlantsListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.channels.Channel

@@ -1,4 +1,4 @@
-package com.edumate.greenify.feature.plants.plantsList
+package com.edumate.greenify.feature.plants.plantsList.components
 
 import android.util.Log
 import androidx.compose.foundation.background

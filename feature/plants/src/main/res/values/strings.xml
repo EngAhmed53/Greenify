@@ -6,4 +6,5 @@
     <string name="feature_plants_author">Author</string>
     <string name="feature_plants_select_plant_to_display_its_information">Select plant to display its information</string>
     <string name="feature_plants_home">Home</string>
+    <string name="feature_plants_more_information">More Information</string>
 </resources>
